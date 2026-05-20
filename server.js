@@ -16,7 +16,7 @@ app.get("/usuarios", (req, res) => {
     res.json(usuarios);
 });
 
-app.get("usuario/:id", (req, res) =>{
+app.get("/usuario/:id", (req, res) =>{
     const id = Number(req.params.id);
     const usuario = usuarios.find(u => u.id === id);
     if(!usuario){
@@ -57,6 +57,10 @@ app.put("/editar/:id", (req,res) => {
             mensagem: "Usuário não encontrado"
         });
     }
+
+    if(nome) usuarios.nome=nome;
+    if(email) usuarios.email=email;
+
     res.json({
         mensagem: "Usuário atualizado com sucesso!",
         usuario
@@ -71,23 +75,16 @@ app.delete("/deletar/:id", (req, res) => {
             mensagem: "Usuário não encontrado"
      });
     }
-})
-
-if (nome) usuario.nome = nome
-if (email) usuario.email = email
-
-  res.json({
-    mensagem:"Usuario atualizado com sucesso!"
-  })
-
     const usuarioRemovido = usuarios.splice(index, 1);
 
     res.json({
         mensagem: "Usuario deletado com sucesso!",
         usuario: usuarioRemovido[0]
     })
+})
 
-    const PORT = 3000;
+
+const PORT = 3000;
 
 app.listen(PORT, () => {
 console.log(`Servidor rodando em https://localhost:${PORT}`);
